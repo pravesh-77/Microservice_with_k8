@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-server-config
+  namespace: kube-system
+data:
+  config.yaml: |
+    apiVersion: v1
+    kind: Config
+    clusters:
+    - cluster:
+        certificate-authority: /etc/ssl/certs/ca-certificates.crt
+        server: https://kubernetes.default.svc
+      name: kubernetes
+    contexts:
+    - context:
+        cluster: kubernetes
+        user: kubernetes-admin
+        namespace: kube-system
+      name: kubernetes-admin@kubernetes
+    current-context: kubernetes-admin@kubernetes
+    users:
+    - name: kubernetes-admin
+      user:
+        token: YOUR_ACCESS_TOKEN

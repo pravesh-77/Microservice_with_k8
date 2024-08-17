@@ -1,0 +1,11 @@
+version: '3'
+services:
+  user-service:
+    image: praveshparashar77081/user-service:latest
+    ports:
+      - "3002:4000"  # Map port 4000 of the container to port 3002 on the host
+
+  product-service:
+    image: praveshparashar77081/product-service:latest
+    ports:
+      - "3001:4001"  # Map port 4001 of the container to port 3001 on the host
