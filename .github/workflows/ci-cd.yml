@@ -33,11 +33,10 @@ jobs:
           docker build -t pravesh-77/product-service ./Product
       - name: Push Docker images to Docker Hub
         run: |
-        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin                                                                   docker push pravesh-77/user-service                                              
-        docker push pravesh-77/product-service
-                                                                                                                                                                                  env:
-                                                                                                                                                                                    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}                                                                                                                        
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin                                                                   docker push pravesh-77/user-service                                              
+          docker push pravesh-77/product-service                                                                                                                                    env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 deploy:
   runs-on: ubuntu-latest
   needs: build
