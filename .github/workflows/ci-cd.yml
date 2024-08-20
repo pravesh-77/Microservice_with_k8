@@ -71,9 +71,7 @@ jobs:
         run: |
           echo "Contents of the repository:"
           ls -la
-          echo "Contents of the k8s directory:"
-          ls -la k8s
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/
+          kubectl apply -f ./
