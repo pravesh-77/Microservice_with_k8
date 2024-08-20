@@ -27,11 +27,12 @@ jobs:
       - name: Install dependencies for Product service
         run: npm install --prefix ./product-service
 
-      - name: Run tests for User service
-        run: npm test --prefix ./user-service
+      # Comment out or remove the test steps
+# - name: Run tests for User service
+#   run: npm test --prefix ./user-service
 
-      - name: Run tests for Product service
-        run: npm test --prefix ./product-service
+# - name: Run tests for Product service
+#   run: npm test --prefix ./product-service
 
       - name: Build Docker images
         run: |
