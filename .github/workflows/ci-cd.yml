@@ -27,26 +27,24 @@ jobs:
       - name: Install dependencies for Product service
         run: npm install --prefix ./product-service
 
-      # Comment out or remove the test steps
-# - name: Run tests for User service
-#   run: npm test --prefix ./user-service
+      - name: Run tests for User service
+        run: npm test --prefix ./user-service
 
-# - name: Run tests for Product service
-#   run: npm test --prefix ./product-service
+      - name: Run tests for Product service
+        run: npm test --prefix ./product-service
 
       - name: Build Docker images
         run: |
-          docker build -t pravesh-77/user-service ./user-service
-          docker build -t pravesh-77/product-service ./product-service
+          docker build -t praveshparashar77081/user-service ./user-service
+          docker build -t praveshparashar77081/product-service ./product-service
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker images to Docker Hub
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push pravesh-77/user-service
-          docker push pravesh-77/product-service
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          docker push praveshparashar77081/user-service
+          docker push praveshparashar77081/product-service
 
   deploy:
     runs-on: ubuntu-latest
