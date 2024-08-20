@@ -59,13 +59,14 @@ jobs:
       - name: Configure kubectl
         run: |
           echo "$KUBECONFIG" | base64 -d > ~/.kube/config
+          cat ~/.kube/config
           kubectl config view
 
       - name: Validate Kubernetes configuration
         run: |
-          kubectl cluster-info
-          kubectl get pods
-          kubectl get services
+          kubectl cluster-info || { echo 'Failed to get cluster info'; exit 1; }
+          kubectl get pods || { echo 'Failed to get pods'; exit 1; }
+          kubectl get services || { echo 'Failed to get services'; exit 1; }
 
       - name: Deploy to Kubernetes
         run: |
