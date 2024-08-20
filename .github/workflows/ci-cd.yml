@@ -53,9 +53,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y kubectl
 
-      - name: Create .kube directory
-        run: mkdir -p ~/.kube
-
       - name: Configure kubectl
         run: |
           echo "$KUBECONFIG" | base64 -d > ~/.kube/config
