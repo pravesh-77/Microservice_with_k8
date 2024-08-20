@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Ensure this points to your KUBECONFIG file or path
+      KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Ensure this is set correctly
 
     steps:
       - name: Checkout code
@@ -66,7 +66,13 @@ jobs:
 
       - name: Configure kubectl for Minikube
         run: echo "$KUBECONFIG" > ~/.kube/config
-        # Ensure the KUBECONFIG variable contains the Minikube config data or path
+
+      - name: List directory contents
+        run: |
+          echo "Contents of the repository:"
+          ls -la
+          echo "Contents of the k8s directory:"
+          ls -la k8s
 
       - name: Deploy to Kubernetes
         run: |
