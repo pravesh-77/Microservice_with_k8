@@ -60,12 +60,11 @@ jobs:
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
           sudo install minikube-linux-amd64 /usr/local/bin/minikube
-          sudo minikube start --driver=docker
+          sudo -u $USER minikube start --driver=docker
 
       - name: Configure kubectl
         run: |
           echo "$KUBECONFIG" | base64 -d > ~/.kube/config
-          cat ~/.kube/config
           kubectl config view
 
       - name: Validate Kubernetes configuration
