@@ -53,9 +53,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y kubectl
 
-      - name: Create .kube directory
-        run: mkdir -p ~/.kube
-
       - name: Set up Minikube
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -64,7 +61,9 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          echo "$KUBECONFIG" | base64 -d > ~/.kube/config
+          mkdir -p ~/.kube
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl config use-context minikube
           kubectl config view
 
       - name: Validate Kubernetes configuration
