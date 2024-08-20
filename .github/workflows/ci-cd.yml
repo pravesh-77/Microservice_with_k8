@@ -59,10 +59,17 @@ jobs:
       - name: Configure kubectl
         run: |
           echo "$KUBECONFIG" > ~/.kube/config
+          kubectl config view
+
+      - name: Validate Kubernetes configuration
+        run: |
+          kubectl cluster-info
+          kubectl get pods
+          kubectl get services
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f product-deployment.yml
-          kubectl apply -f product-service.yml
-          kubectl apply -f user-deployment.yml
-          kubectl apply -f user-service.yml
+          kubectl apply -f product-deployment.yml || { echo 'Failed to apply product-deployment.yml'; exit 1; }
+          kubectl apply -f product-service.yml || { echo 'Failed to apply product-service.yml'; exit 1; }
+          kubectl apply -f user-deployment.yml || { echo 'Failed to apply user-deployment.yml'; exit 1; }
+          kubectl apply -f user-service.yml || { echo 'Failed to apply user-service.yml'; exit 1; }
