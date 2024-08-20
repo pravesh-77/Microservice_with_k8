@@ -60,13 +60,9 @@ jobs:
         run: |
           echo "$KUBECONFIG" > ~/.kube/config
 
-      - name: List directory contents
-        run: |
-          echo "Contents of the repository:"
-          ls -la
-          echo "Contents of the k8s directory:"
-          ls -la
-
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f ./
+          kubectl apply -f product-deployment.yml
+          kubectl apply -f product-service.yml
+          kubectl apply -f user-deployment.yml
+          kubectl apply -f user-service.yml
